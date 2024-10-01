@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, useWindowDimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, useWindowDimensions, Pressable } from 'react-native';
 
 export default function HomeScreen({ navigation }) {
   return (
@@ -7,6 +7,7 @@ export default function HomeScreen({ navigation }) {
      <View style={{height:useWindowDimensions().height/3.5, backgroundColor:"#ead7ba", width:"100%", padding: 20, paddingTop: 50 }}>
         <Text style={styles.header1}>Chef </Text>
         <Text style={styles.header2}>Christoffel</Text>
+
       </View>
 
       <View style={{...styles.menuContainer, height:useWindowDimensions().height/2 }}>
@@ -27,10 +28,16 @@ export default function HomeScreen({ navigation }) {
 
       <View style={styles.suggestionContainer}>
         <Image source={require('../assets/images/burger.jpg')} style={styles.image} />
-        <View style={styles.suggestionTextContainer}>
-          <Text style={styles.suggestionText}>Chef Suggestions</Text>
-          <Text style={styles.dish}>Roasted Beef</Text>
-        </View>
+        <Pressable  style={styles.backButton} onPress={() => navigation.navigate('Mains')}>
+            <View style={styles.suggestionTextContainer}>
+              <Text style={styles.suggestionText}>Chef Suggestions</Text>
+              <Text style={styles.dish}>Roasted Beef</Text>
+            </View>
+        </Pressable>
+
+
+       
+      
       </View>
     </View>
   );
