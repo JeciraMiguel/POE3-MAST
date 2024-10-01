@@ -12,8 +12,11 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    "GreatVibes": require('../assets/fonts/GreatVibes-Regular.ttf'),
+    "Monseratt": require("../assets/fonts/Montserrat-Italic-VariableFont_wght.ttf")
   });
 
   useEffect(() => {
