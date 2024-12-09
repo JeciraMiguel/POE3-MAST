@@ -1,29 +1,78 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, useWindowDimensions, Pressable } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, useWindowDimensions, Pressable, Button } from 'react-native';
+
+const ItemsInformations = [
+  {   title : "Mains", 
+      menuItems : [
+        {name : "Grilled Octopus", price : 150, description : "Tender grilled octopus with delightful flavors", image:require("../assets/images/optopus.jpg")},
+        {name: "Simple Pasta",   price: 150,   description: "A classic, comforting pasta dish.", image:require("../assets/images/pasta.jpg")  },
+        {name: "Roasted Beef",   price: 200,    description: "Juicy beef with heavy seasoning.", image:require("../assets/images/beef.jpg") }
+      ]
+  },
+  {
+      title: "Desserts",
+      menuItems : [
+        {name: "Caramel Pudding", price: 150, description: "A smooth custard with a caramel topping.", image: require("../assets/images/caramel.jpg")},
+        {name: "Panna Cotta", price: 200, description: "Creamy panna cotta with mango topping.", image: require("../assets/images/pannha.jpg")},
+        {name: "Vanilla Cream Cheese", price: 100, description: "A delightful vanilla-flavored dessert.", image: require("../assets/images/vanila.jpg")}
+      ]
+  },
+  {
+      title : "Starters", 
+      menuItems : [
+       {name: "Dumplings",     price: 100,   description: "Savory pockets of deliciousness.", image : require("../assets/images/toasty.jpg")  },
+       { name: "Fried Fish",   price: 200,   description: "Golden fried fish with a crispy texture." , image: require("../assets/images/dumpling.jpg")},
+       { name: "Crispy Toasty",   price: 150,   description: "Crispy toast topped with savory ingredients", image : require("../assets/images/fish.jpg") }
+     ]
+  }
+]
+
 
 export default function HomeScreen({ navigation }) {
   return (
+
     <View style={styles.container}>
+
      <View style={{height:useWindowDimensions().height/3.5, backgroundColor:"#ead7ba", width:"100%", padding: 20, paddingTop: 50 }}>
-        <Text style={styles.header1}>Chef </Text>
+        <Text style={styles.header1}>Chef</Text>
         <Text style={styles.header2}>Christoffel</Text>
 
       </View>
 
       <View style={{...styles.menuContainer, height:useWindowDimensions().height/2 }}>
         <Text style={styles.subHeader}>CHEF'S MENU</Text>
+        <Button title='My Menu' onPress={()=>{
 
-        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Starters')}>
-          <Text style={styles.menuText}>Starters</Text>
-        </TouchableOpacity>
+          navigation.navigate("MenuManage")
 
-        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Mains')}>
-          <Text style={styles.menuText}>Mains</Text>
-        </TouchableOpacity>
+        }}/>
 
-        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Desserts')}>
-          <Text style={styles.menuText}>Desserts</Text>
-        </TouchableOpacity>
+        <>
+
+          {
+            ItemsInformations.map((itemInformation, i)=>{
+
+              const TotalOfPrices = itemInformation.menuItems.reduce(( total, item)=>{
+                let price = item.price
+                return total += price
+              }, 0)
+
+              
+
+              const averagePrice = Math.round(TotalOfPrices / itemInformation.menuItems.length)
+              
+              return (
+
+              <TouchableOpacity key={i} style={styles.menuItem} onPress={() => navigation.navigate('ItemDetails', {menuItems:itemInformation.menuItems, title:itemInformation.title })}>
+                <Text style={styles.menuText}>{itemInformation.title}</Text>
+                <Text style={styles.menuMeanPrice}> (Average Price : {averagePrice}) </Text>
+              </TouchableOpacity>
+
+            )})
+          }
+
+        </>
+
       </View>
 
       <View style={styles.suggestionContainer}>
@@ -39,6 +88,7 @@ export default function HomeScreen({ navigation }) {
        
       
       </View>
+
     </View>
   );
 }
@@ -83,16 +133,24 @@ const styles = StyleSheet.create({
     marginBottom: 80,
   },
   menuItem: {
-    marginVertical: 15, // margem vertical entre os itens do menu
+    display:"flex",
+    flexDirection:"row",
+    justifyContent:"center",
+    alignItems:"center",
+    marginVertical: 5, // margem vertical entre os itens do menu
     padding: 10, // preenchimento interno para melhorar o toque
   },
   menuText: {
-    fontSize: 50,
+    fontSize: 40,
     fontFamily:"GreatVibes",
     color: '#5b2f38',
-    marginBottom:0,
-    marginTop:-50
 
+  },
+  menuMeanPrice: {
+    fontSize: 20,
+    fontFamily:"Monseratt",
+    color: '#000',
+    marginTop:10,
   },
   suggestionContainer: {
     flexDirection: 'row',

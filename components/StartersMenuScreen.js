@@ -2,49 +2,19 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView,Image, Pressable } from 'react-native';
 
 export default function StartersMenuScreen({ navigation }) {
+
+  const pageData = {
+
+    title : "Starters", 
+     menuItems : [
+      {name: "Dumplings",     price: 100,   description: "Savory pockets of deliciousness.", image : require("../assets/images/toasty.jpg")  },
+      { name: "Fried Fish",   price: 200,   description: "Golden fried fish with a crispy texture." , image: require("../assets/images/dumpling.jpg")},
+      { name: "Crispy Toasty",   price: 150,   description: "Crispy toast topped with savory ingredients", image : require("../assets/images/fish.jpg") }
+    ]
+    
+  }
   return (
-    <ScrollView style={styles.container}>
-
-     <Pressable  style={styles.backButton} onPress={() => navigation.navigate('Home')}>
-        <Text style={{fontSize:22, textAlign:"center", verticalAlign:"center"}} >Back to Home</Text>
-      </Pressable>
-
-      <Text style={styles.header1}>Starters  </Text>
-      <Text style={styles.header2}>Menu</Text>
-
-      <View style={styles.menuItem}>
-        <Image source={require('../assets/images/toasty.jpg')} style={styles.image} />
-        <View style={{width:"60%"}}>
-        <Text style={styles.dish}>Crispy Toasty</Text>
-            <Text style={{color:"#c6a17e", textAlign:"right",textDecorationStyle:"solid",  textDecorationLine:"underline", textDecorationColor:"#c6a17e"}}> _____________________________________</Text>
-            <Text style={styles.price}>R150</Text>
-            <Text style={styles.description}>Crispy toast topped with savory ingredients.</Text>
-        </View>
-      </View>
-
-      <View style={styles.menuItem}>
-
-        <Image source={require('../assets/images/dumpling.jpg')} style={styles.image} />
-        <View style={{width:"60%"}}>
-        <Text style={styles.dish}>Dumplings</Text>
-            <Text style={{color:"#c6a17e", textAlign:"right",textDecorationStyle:"solid",  textDecorationLine:"underline", textDecorationColor:"#c6a17e"}}> _____________________________________</Text>
-            <Text style={styles.price}>R100</Text>
-            <Text style={styles.description}>Savory pockets of deliciousness.</Text>
-        </View>
-      </View>
-
-      <View style={styles.menuItem}>
-        <Image source={require('../assets/images/fish.jpg')} style={styles.image} />
-        <View style={{width:"60%"}}>
-           <Text style={styles.dish}>Fried Fish</Text>
-            <Text style={{color:"#c6a17e", textAlign:"right",textDecorationStyle:"solid",  textDecorationLine:"underline", textDecorationColor:"#c6a17e"}}> _____________________________________</Text>
-            <Text style={styles.price}>R200</Text>
-            <Text style={styles.description}>Golden fried fish with a crispy texture.</Text>
-        </View>
-      </View>
-
-      
-    </ScrollView>
+        <ModelPage navigation={navigation} title={pageData.title} listOfMenuItems={pageData.menuItems}/>
   );
 }
 
